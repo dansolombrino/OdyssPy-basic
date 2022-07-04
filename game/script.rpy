@@ -171,7 +171,7 @@ label polyphemus:
 
             jump aeolus
         
-        "Takes the loss. I'll never be able to counter a giant. I can not win.":
+        "Take the loss. I'll never be able to counter a giant. I can not win.":
 
             jump that_s_not_quite_how_it_went
 
