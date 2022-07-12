@@ -341,7 +341,7 @@ label underworld:
 
     homer "Following the Circe's advice, the men arrive in the Underworld"
 
-    homer "Here Odysseus meets the ghosts of numerous people, including: his mother, Teiresias and Agamemnon":
+    homer "Here Odysseus meets the ghosts of numerous people, including: his mother, Teiresias and Agamemnon"
 
     jump sirens_choice
 
