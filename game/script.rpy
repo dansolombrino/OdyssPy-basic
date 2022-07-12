@@ -10,6 +10,31 @@ define scylla_and_charybdis = Character("Scylla and Charybdis", color="#FF0000")
 define helios = Character("Helios", color="#A5B5BF")
 define calypso = Character("Calypso", color="#FF0000")
 
+# Defining variables for alternative paths
+default bag_of_winds = False
+default bag_of_endless_bread = False
+
+# Defining variables for scene selection purposes
+default last_scene = "start"
+default scene_names = [
+    "start",
+    "lotus_flowers",
+    "ate_lotus_flowers",
+    "polyphemus",
+    "blinded_polyphemus",
+    "aeolus",
+    "circe",
+    "underworld",
+    "sirens_choice",
+    "sirens_correct",
+    "monsters",
+    "helios",
+    "ogygia",
+    "conclusion",
+    "that_s_not_quite_how_it_went",
+    "goodbye"
+]
+
 # Actual game
 
 label start:
@@ -82,7 +107,7 @@ label lotus_flowers:
 
     menu:
         
-        crewmen "Hey! Look! We found these! Shall we eat them?"
+        crewmen "Hey! Look! We found these lotus flowers! Shall we eat them?"
 
         "Uhm, better safe then sorry, let's find something more familiar...":
 
@@ -167,17 +192,22 @@ label polyphemus:
 
         odysseus "Uhm... what do I do?"
 
-        "Make Polyphemus drunk and blind him, sticking a burning stake into his eye while he's asleep":
-
-            jump aeolus
-        
-        "Take the loss. I'll never be able to counter a giant. I can not win.":
+        "Make Polyphemus drunk and kill him, cutting his head with a giant sharp rock":
 
             jump that_s_not_quite_how_it_went
 
-label aeolus:
+        "Make Polyphemus drunk and blind him, sticking a burning stake into his eye while he's asleep":
 
-    $ last_scene = "aeolus"
+            jump blinded_polyphemus
+        
+        "Take the loss. I'll never be able to counter a giant. I can not win.":
+
+            jump aeolus
+    
+
+label blinded_polyphemus:
+
+    $ last_scene = "blinded_polyphemus"
 
     scene bg blinded polyphemus
 
@@ -187,9 +217,15 @@ label aeolus:
 
     homer "Odysseus and his men take advantage of the situation and manage to escape"
 
-    homer "Still shocked about what happened with Polyphemus, they arrive in Aeolia"
-
     hide homer
+
+    show crewmen at right with dissolve
+
+    jump aeolus
+
+label aeolus:
+
+    $ last_scene = "aeolus"
 
     scene bg land of aeolus
 
@@ -199,22 +235,9 @@ label aeolus:
 
     show antique sack at topleft
 
-    menu:
+    homer "Aeolus is very gentle with the men. He decides to gift the a bag full of wind, which would be useful to steer them towards Ithaca, during their sailing."
 
-        "Aeolus is very friendly with them, and gives them a bag with what?"
-
-        "\"Endless bread\", a specially-crafted type of bread which satisfies the need of eating forever":
-
-            jump that_s_not_quite_how_it_went
-
-        "Storm winds, to help them push back to Ithaca":
-
-            jump crewmen_open_bag
-   
-
-label crewmen_open_bag:
-
-    $ last_scene = "crewmen_open_bag"
+    hide antique sack
 
     scene bg ithaca
 
@@ -245,7 +268,7 @@ label crewmen_open_bag:
     homer "Excited by the prospect of getting back home, the crewmen decide to open the bag gifted to them by Aeolus"
 
     hide homer 
-        
+
     jump circe
 
 label circe:
@@ -284,7 +307,6 @@ label circe:
 
     hide homer
 
-
     show odysseus at right with dissolve
 
     odysseus "What is happening?!?"
@@ -304,12 +326,47 @@ label circe:
     homer "Eventually, Circe understands that Odysseus has to go home, so she advises him to what route to take"
 
     homer "Specifically, she tells him to visit the Underworld..."
-    
-    homer "The Underworld is full of tests, but Odysseus and his men manage to survive"
 
     hide homer
 
-    jump sirens_correct
+    jump underworld
+
+label underworld:
+
+    $ last_scene = "underworld"
+
+    scene bg underworld
+
+    show homer at left with dissolve
+
+    homer "Following the Circe's advice, the men arrive in the Underworld"
+
+    homer "Here Odysseus meets the ghosts of numerous people, including: his mother, Teiresias and Agamemnon":
+
+    jump sirens_choice
+
+    
+label sirens_choice:
+
+    $ last_scene = "sirens_choice"
+
+    scene bg sirens
+
+    show homer at left with dissolve
+
+    homer "Next up for the crew, the Sirens!"
+
+    menu:
+
+        homer "What is the peculiarity of the Sirens?"
+
+        "Getting by the Sirens requires at least a woman to be present in the ship":
+
+            jump that_s_not_quite_how_it_went
+
+        "Getting by the Sirens was an impossible task, as their beautiful song drew anyone who heard it in":
+
+            jump sirens_correct
 
 
 label sirens_correct:
@@ -356,23 +413,9 @@ label monsters:
 
     scylla_and_charybdis "You are not allowed to pass through any of the paths of this bifurcation, unless a sacrifice is made"
 
-    scylla_and_charybdis "We propose you three options."    
-    
-    menu:
+    scylla_and_charybdis "We want you to sacrifice 6 men of your crew, otherwise, we are going to kill them all."
 
-        "What does Odysseus do?"
-
-        "Sacrifices 6 men, to get access to the longest path":
-
-            jump helios
-
-        "Sacrifices all his crew, to get access to the shortest path":
-
-            jump that_s_not_quite_how_it_went
-
-        "Refuses both offers and gets killed, together with his men, by Scylla and Charybdis":
-
-            jump that_s_not_quite_how_it_went
+    jump helios
                 
 
 label helios:
@@ -494,7 +537,6 @@ label conclusion:
 
     return
 
-
 label that_s_not_quite_how_it_went:
 
     scene bg that s
@@ -512,7 +554,7 @@ label that_s_not_quite_how_it_went:
             jump expression last_scene
 
         "Go study maths...":
-            return
+            jump goodbye
 
 label goodbye:
 
@@ -522,7 +564,7 @@ label goodbye:
 
         "Would you like to...?"
 
-        "Go study maths...":
+        "Exit":
 
             return 
         
