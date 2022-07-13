@@ -10,10 +10,6 @@ define scylla_and_charybdis = Character("Scylla and Charybdis", color="#FF0000")
 define helios = Character("Helios", color="#A5B5BF")
 define calypso = Character("Calypso", color="#FF0000")
 
-# Defining variables for alternative paths
-default bag_of_winds = False
-default bag_of_endless_bread = False
-
 # Defining variables for scene selection purposes
 default last_scene = "start"
 default scene_names = [
