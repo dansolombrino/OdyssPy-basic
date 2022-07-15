@@ -198,7 +198,7 @@ label polyphemus:
         
         "Take the loss. I'll never be able to counter a giant. I can not win.":
 
-            jump aeolus
+            jump that_s_not_quite_how_it_went
     
 
 label blinded_polyphemus:
